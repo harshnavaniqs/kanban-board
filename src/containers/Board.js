@@ -8,45 +8,23 @@ const priorityColumns=['0','1','2','3','4']
 
 const statusColumns =['Todo', 'Canceled', 'In progress', 'Done', 'Backlog'];
 export default function Board({ sortedGroups, users, selectedGrouping }) {
-  if (selectedGrouping === 'priority') {
-    return (
-<Flex bg={'gray.50'} >
-
-{priorityColumns.map(column => (
-
-  <Stack key={column} m={3} w={'350px'}>
-    <Flex alignItems={'center'}>
-    <IconSelector groupKey={column} userData={users} />
-    <Text fontWeight={500} fontSize={'13px'} textAlign={'left'} mr={'2'}>{priorityLabels[column]}</Text>
-    <Text fontSize={'13px'} color={'gray.500'}>{sortedGroups.find(group => group.groupKey === column)?.items.length}</Text>
-    </Flex>
-    {sortedGroups.find(group => group.groupKey === column)?.items.map(item => (
-      <KanbanCard key={item.id} cardData={item} userData={users} />
-    ))}
-  </Stack>
-))}
 
 
-
-</Flex>
-    )
-  }
-
-
-  if (selectedGrouping === 'status') {
+  if (selectedGrouping === 'status' || selectedGrouping === 'priority') {
+    const myArr=selectedGrouping==='status'?statusColumns:priorityColumns
     return (
       <Flex bg={'gray.50'} >
 
-        {statusColumns.map(column => (
+        {myArr.map(column => (
           
           <Stack key={column} m={3} w={'350px'}>
             <Flex alignItems={'center'}>
-            <IconSelector groupKey={column} userData={users} />
-            <Text fontWeight={500} fontSize={'13px'} textAlign={'left'} mr={'2'}>{column}</Text>
-            <Text fontSize={'13px'} color={'gray.500'}>{sortedGroups.find(group => group.groupKey === column)?.items.length}</Text>
+              <IconSelector groupKey={column} userData={users} />
+          <Text fontWeight={500} fontSize={'13px'} textAlign={'left'} mr={'2'}>{selectedGrouping==='status'?column:priorityLabels[column]}</Text>
+              <Text fontSize={'13px'} color={'gray.500'}>{sortedGroups.find(group => group.groupKey === column)?.items.length}</Text>
             </Flex>
             {sortedGroups.find(group => group.groupKey === column)?.items.map(item => (
-              <KanbanCard key={item.id} cardData={item} userData={users} />
+              <KanbanCard key={item.id} cardData={item} userData={users} avatar={true} />
             ))}
           </Stack>
         ))}
@@ -58,7 +36,25 @@ export default function Board({ sortedGroups, users, selectedGrouping }) {
   }
 
   else {
-    return(
- 
+    return (
+      <Flex bg={'gray.50'} >
+
+       {sortedGroups.map(({ groupKey, items }) => (
+          <Stack key={groupKey} m={3}>
+            <Flex alignItems={'center'}>
+              <IconSelector groupKey={groupKey} userData={users} />
+              <Text fontWeight={500} fontSize={'13px'} textAlign={'left'} mr={'2'}>{groupKey}</Text>
+              <Text fontSize={'13px'}>{items.length}</Text>
+            </Flex>
+            {items.map(item => (
+              <KanbanCard key={item.id} cardData={item} userData={users} avatar={false} />
+            ))}
+          </Stack>
+        ))}
+         
+
+
+      </Flex>
     )
-} 
+  }
+}

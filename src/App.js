@@ -72,7 +72,7 @@ function App() {
                 <Text mr={1}>Grouping</Text>
                 <Select placeholder='Group by' value={selectedGrouping} onChange={handleGroupingChange} w={200}>
   <option value='status'>Status</option>
-  <option value='userId'>User Name</option>
+  <option value='userId'>Users</option>
   <option value='priority'>Priority</option>
               </Select>
               </Flex> 
