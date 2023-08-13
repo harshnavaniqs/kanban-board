@@ -26,7 +26,7 @@ export default function KanbanCard({ cardData, userData, avatar }) {
                   direction={{ base: "column", sm: "row" }}
                   overflow="hidden"
                   variant="outline"
-                  w={350}
+                  w={['88vw','350px']}
             >
                   {/* <Stack> */}
                   <CardBody p={2}>

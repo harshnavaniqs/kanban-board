@@ -21,7 +21,7 @@ export default function Board({ sortedGroups, users, selectedGrouping }) {
             return (
                   <Flex bg={"gray.50"} direction={["column", "row"]}>
                         {myArr.map((column) => (
-                              <Stack key={column} m={3} w={"350px"}>
+                              <Stack key={column} m={3} w={['88vw',350]}>
                                     <Flex
                                           justify={"space-between"}
                                           alignItems={"center"}
