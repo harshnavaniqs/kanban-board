@@ -9,9 +9,15 @@ import { Hidden } from '@mui/material';
 function App() {
 
   const [tickets, setTickets] = useState([]);
-  const [users,  setUsers] = useState([]);
-  const [selectedGrouping, setSelectedGrouping] = useState('status');
-  const [selectedSorting, setSelectedSorting] = useState('priority');
+  const [users, setUsers] = useState([]);
+  const [selectedGrouping, setSelectedGrouping] = useState(
+    () => {
+      return localStorage.getItem('selectedGrouping') || 'status'
+    });
+  const [selectedSorting, setSelectedSorting] = useState(
+    () => {
+      return localStorage.getItem('selectedSorting') ||
+    'priority'});
 
   useEffect(() => {
     fetch('https://apimocha.com/quicksell/data')
@@ -25,10 +31,12 @@ function App() {
 
   const handleGroupingChange = event => {
     setSelectedGrouping(event.target.value);
+    localStorage.setItem('selectedGrouping', event.target.value); 
   };
 
   const handleSortingChange = event => {
     setSelectedSorting(event.target.value);
+    localStorage.setItem('selectedSorting', event.target.value); 
   };
 
   const userIdToNameMap = users.reduce((map, user) => {

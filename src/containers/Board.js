@@ -9,8 +9,7 @@ const priorityColumns=['0','1','2','3','4']
 
 const statusColumns =['Todo',  'In progress',  'Backlog','Done','Canceled',];
 export default function Board({ sortedGroups, users, selectedGrouping }) {
-
-
+  
   if (selectedGrouping === 'status' || selectedGrouping === 'priority') {
     const myArr=selectedGrouping==='status'?statusColumns:priorityColumns
     return (
