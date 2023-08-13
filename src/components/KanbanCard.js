@@ -21,7 +21,7 @@ export default function KanbanCard({ cardData, userData,avatar }) {
                             </div>
                         <div>{
                         avatar?<Avatar name={user.name} w={5} mr={2} h={5} size={'xs'} >
-                        {user.available?<AvatarBadge boxSize='1em' bg='green.500' />:<AvatarBadge boxSize='1em' bg='red.500' />} 
+                        {user.available?<AvatarBadge boxSize='1em' bg='yellow.400' />:<AvatarBadge boxSize='1em' bg='gray.400' />} 
                             </Avatar>:""
                             }
                         

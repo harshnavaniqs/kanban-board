@@ -41,7 +41,7 @@ export default function Board({ sortedGroups, users, selectedGrouping }) {
 
   else {
     return (
-      <Flex bg={'gray.50'} >
+      <Flex bg={'gray.50'} direction={['column','row']}>
 
        {sortedGroups.map(({ groupKey, items }) => (
          <Stack key={groupKey} m={3}>

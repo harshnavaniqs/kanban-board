@@ -13,9 +13,6 @@ export default function IconSelector({ groupKey,userData }) {
       if (groupKey === '3') return <BellIcon w={3} mr={2} />;
       if (groupKey === '1') return <MinusIcon w={3} mr={2} />;
       else return <Avatar name={user.name} w={5} mr={2} h={5} size={'xs'}>
-      {user.available?<AvatarBadge boxSize='1em' bg='green.500' />:<AvatarBadge boxSize='1em' bg='red.500' />} 
+      {user.available?<AvatarBadge boxSize='1em' bg='yellow.400' />:<AvatarBadge boxSize='1em' bg='gray.400' />} 
    </Avatar>
-
-    //   if (groupKey === "In progress") return <TimeIcon w={3} mr={2} />;
-    //   if (groupKey === "In progress") return <TimeIcon w={3} mr={2} />;
 }
