@@ -3,8 +3,9 @@ import './App.css';
 // import KanbanCard from './components/KanbanCard';
 import React, { useState, useEffect } from 'react';
 import { ChakraProvider, Stack,Select,  Menu, MenuButton, MenuList,Button, Flex,Text} from '@chakra-ui/react'
-import { HamburgerIcon } from '@chakra-ui/icons'
+import { HamburgerIcon,ChevronDownIcon } from '@chakra-ui/icons'
 import Board from './containers/Board'
+import { Hidden } from '@mui/material';
 function App() {
 
   const [tickets, setTickets] = useState([]);
@@ -63,22 +64,22 @@ function App() {
       <div className="App" >
         <Flex >
       <Menu>
-  <MenuButton as={Button} leftIcon={<HamburgerIcon/>} w={120} m={3} colorScheme='gray' variant='outline'>
+  <MenuButton as={Button} leftIcon={<HamburgerIcon/>} w={100} m={3} h={8} colorScheme='gray' variant='outline'  fontSize={12}>
     Display
   </MenuButton>
-  <MenuList p={2}>
+  <MenuList p={2} w={260}>
             <Stack>
               <Flex alignItems={'center'} justify={'space-between'}>
-                <Text mr={1}>Grouping</Text>
-                <Select placeholder='Group by' value={selectedGrouping} onChange={handleGroupingChange} w={200}>
+                <Text mr={1} color={'gray.500'} fontSize={12} textAlign={'left'}>Grouping</Text>
+                  <Select  value={selectedGrouping} onChange={handleGroupingChange} w={150} fontSize={13}>
   <option value='status'>Status</option>
   <option value='userId'>Users</option>
   <option value='priority'>Priority</option>
               </Select>
               </Flex> 
               <Flex alignItems={'center'} justify={'space-between'}>
-                <Text mr={1}>Ordering</Text>
-              <Select placeholder='Sort by' value={selectedSorting} onChange={handleSortingChange} w={200}>
+                <Text mr={1} color={'gray.500'} fontSize={12}>Ordering</Text>
+              <Select  value={selectedSorting} onChange={handleSortingChange} w={150} fontSize={13}>
   <option value='priority'>Priority</option>
   <option value='title'>Title</option>
               </Select>
@@ -87,7 +88,7 @@ function App() {
   </MenuList>
 </Menu>
 </Flex>
-        <Flex bg={'gray.50'} h={'100vh'}>
+        <Flex bg={'gray.50'} minH={['100%','100vh']} justify={['center','left']}>
         
           <Board sortedGroups={sortedGroups} users={users} selectedGrouping={selectedGrouping}/>   
   </Flex>
