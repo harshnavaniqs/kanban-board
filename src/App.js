@@ -1,16 +1,16 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
-import KanbanCard from './components/KanbanCard';
+// import KanbanCard from './components/KanbanCard';
 import React, { useState, useEffect } from 'react';
-import { ChakraProvider, Stack,Select } from '@chakra-ui/react'
-
+import { ChakraProvider, Stack,Select,  Menu, MenuButton, MenuList,Button, Flex,Text} from '@chakra-ui/react'
+import { HamburgerIcon } from '@chakra-ui/icons'
+import Board from './containers/Board'
 function App() {
 
   const [tickets, setTickets] = useState([]);
   const [users,  setUsers] = useState([]);
   const [selectedGrouping, setSelectedGrouping] = useState('status');
   const [selectedSorting, setSelectedSorting] = useState('priority');
-
 
   useEffect(() => {
     fetch('https://apimocha.com/quicksell/data')
@@ -60,30 +60,37 @@ function App() {
   return (
     <ChakraProvider>
 
-      <div className="App">
-      <Stack> 
-      <Select placeholder='Group by' value={selectedGrouping} onChange={handleGroupingChange}>
+      <div className="App" >
+        <Flex >
+      <Menu>
+  <MenuButton as={Button} leftIcon={<HamburgerIcon/>} w={120} m={3} colorScheme='gray' variant='outline'>
+    Display
+  </MenuButton>
+  <MenuList p={2}>
+            <Stack>
+              <Flex alignItems={'center'} justify={'space-between'}>
+                <Text mr={1}>Grouping</Text>
+                <Select placeholder='Group by' value={selectedGrouping} onChange={handleGroupingChange} w={200}>
   <option value='status'>Status</option>
   <option value='userId'>User Name</option>
   <option value='priority'>Priority</option>
-        </Select>
-        <Select placeholder='Sort by' value={selectedSorting} onChange={handleSortingChange}>
+              </Select>
+              </Flex> 
+              <Flex alignItems={'center'} justify={'space-between'}>
+                <Text mr={1}>Ordering</Text>
+              <Select placeholder='Sort by' value={selectedSorting} onChange={handleSortingChange} w={200}>
   <option value='priority'>Priority</option>
   <option value='title'>Title</option>
-          </Select>
-          </Stack> 
-          <div>
-    <div className="kanban-board">
-      {sortedGroups.map(({ groupKey, items }) => (
-        <div className="kanban-column" key={groupKey}>
-          <h2>{groupKey}</h2>
-          {items.map(item => (
-            <KanbanCard key={item.id} cardData={item} userData={users} />
-          ))}
-        </div>
-      ))}
-    </div>
-  </div>
+              </Select>
+              </Flex>
+            </Stack>
+  </MenuList>
+</Menu>
+</Flex>
+        <Flex bg={'gray.50'} h={'100vh'}>
+        
+          <Board sortedGroups={sortedGroups} users={users} selectedGrouping={selectedGrouping}/>   
+  </Flex>
        
         
       </div>

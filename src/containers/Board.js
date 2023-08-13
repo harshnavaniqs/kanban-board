@@ -1,17 +1,64 @@
-import KanbanCard  from '../components/KanbanCard'
-export default function Board(props) {
+import KanbanCard from '../components/KanbanCard'
+import IconSelector from '../components/IconSelector'
+import { Flex, Stack, Heading, Text } from '@chakra-ui/react'
+const priorityLabels = {
+   '0': 'No priority' ,  '1': 'Low' ,  '2': 'Medium' , '3': 'High' ,  '4':'Urgent'
+}
+const priorityColumns=['0','1','2','3','4']
+
+const statusColumns =['Todo', 'Canceled', 'In progress', 'Done', 'Backlog'];
+export default function Board({ sortedGroups, users, selectedGrouping }) {
+  if (selectedGrouping === 'priority') {
     return (
-        <div>
-    <div className="kanban-board">
-      {sortedGroups.map(({ groupKey, items }) => (
-        <div className="kanban-column" key={groupKey}>
-          <h2>{groupKey}</h2>
-          {items.map(item => (
-            <KanbanCard key={item.id} cardData={item} />
-          ))}
-        </div>
-      ))}
-    </div>
-  </div>
+<Flex bg={'gray.50'} >
+
+{priorityColumns.map(column => (
+
+  <Stack key={column} m={3} w={'350px'}>
+    <Flex alignItems={'center'}>
+    <IconSelector groupKey={column} userData={users} />
+    <Text fontWeight={500} fontSize={'13px'} textAlign={'left'} mr={'2'}>{priorityLabels[column]}</Text>
+    <Text fontSize={'13px'} color={'gray.500'}>{sortedGroups.find(group => group.groupKey === column)?.items.length}</Text>
+    </Flex>
+    {sortedGroups.find(group => group.groupKey === column)?.items.map(item => (
+      <KanbanCard key={item.id} cardData={item} userData={users} />
+    ))}
+  </Stack>
+))}
+
+
+
+</Flex>
+    )
+  }
+
+
+  if (selectedGrouping === 'status') {
+    return (
+      <Flex bg={'gray.50'} >
+
+        {statusColumns.map(column => (
+          
+          <Stack key={column} m={3} w={'350px'}>
+            <Flex alignItems={'center'}>
+            <IconSelector groupKey={column} userData={users} />
+            <Text fontWeight={500} fontSize={'13px'} textAlign={'left'} mr={'2'}>{column}</Text>
+            <Text fontSize={'13px'} color={'gray.500'}>{sortedGroups.find(group => group.groupKey === column)?.items.length}</Text>
+            </Flex>
+            {sortedGroups.find(group => group.groupKey === column)?.items.map(item => (
+              <KanbanCard key={item.id} cardData={item} userData={users} />
+            ))}
+          </Stack>
+        ))}
+        
+
+
+      </Flex>
+    )
+  }
+
+  else {
+    return(
+ 
     )
 } 

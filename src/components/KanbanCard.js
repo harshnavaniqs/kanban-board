@@ -1,21 +1,15 @@
 import { Card, CardHeader, CardBody, CardFooter,Image,Stack,Heading,Button,Text, Flex,Box, Center,Icon,Avatar, AvatarBadge, AvatarGroup  } from '@chakra-ui/react'
 import { SettingsIcon } from '@chakra-ui/icons'
-const priorityLabels = {
-    4: 'Urgent',
-    3: 'High',
-    2: 'Medium',
-    1: 'Low',
-    0: 'No priority',
-};
-  
+
 export default function KanbanCard({ cardData, userData }) {
-    const user=userData.find(user=>user.id===cardData.user_id)
+    const user = userData.find(user => user.id === cardData.userId)
+    
     return (
         <Card
         direction={{ base: 'column', sm: 'row' }}
         overflow='hidden'
             variant='outline'
-            maxWidth={350}
+            w={350}
     >
        
         {/* <Stack> */}
@@ -26,7 +20,9 @@ export default function KanbanCard({ cardData, userData }) {
                                 {cardData.id}
                             </div>
                         <div>
-                        <Avatar name='Dan Abrahmov' w={'24px'} h={'24px'} src='https://bit.ly/dan-abramov' />
+                        <Avatar name={user.name} w={5} mr={2} h={5} size={'xs'}>
+         {user.available?<AvatarBadge boxSize='1em' bg='green.500' />:<AvatarBadge boxSize='1em' bg='red.500' />} 
+      </Avatar>
                         
                         </div>      
                         
